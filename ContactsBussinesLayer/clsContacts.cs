@@ -21,7 +21,7 @@ namespace ContactsBussinesLayer
         public int CountryID { get; set; }
         public string ImagePath { get; set; }
 
-        public clsContacts( int contactID, string firstName, string lastName, string email, string phone, string address, DateTime dateOfBirth, int countryID, string imagePath)
+        private clsContacts( int contactID, string firstName, string lastName, string email, string phone, string address, DateTime dateOfBirth, int countryID, string imagePath)
         {
             
             ContactID = contactID;
