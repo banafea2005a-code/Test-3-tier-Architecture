@@ -43,7 +43,20 @@ namespace ContactsDataAccessLayer
                     Phone = (string)reader["Phone"];
                     Address = (string)reader["Address"];
                     DateOfBirth = (DateTime)reader["DateOfBirth"];
-                    ImagePath = (string)reader["ImagePath"];
+
+                    // When return Image Path value Check If Null Or Not
+                    // handling
+                    
+                    if (reader["ImagePath"] != DBNull.Value)
+                    {
+
+                        ImagePath = (string)reader["ImagePath"];
+
+                    }
+                    else
+                    {
+                        ImagePath = "";
+                    }
 
                 }
 
