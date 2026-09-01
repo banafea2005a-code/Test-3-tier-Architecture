@@ -30,6 +30,12 @@ namespace ContactsBussinesLayer
 
 
         }
+        private bool _UpdateContact()
+        {
+            return clsContactsDataAccess.UpdateContact(this.ContactID, this.FirstName,
+                this.LastName, this.Email, this.Phone, this.Address, this.DateOfBirth,
+                this.CountryID, this.ImagePath);
+        }
         private clsContacts( int contactID, string firstName, string lastName, string email, string phone, string address, DateTime dateOfBirth, int countryID, string imagePath)
         {
             
@@ -75,18 +81,15 @@ namespace ContactsBussinesLayer
                     {
                         return false;
                     }
-                    // To Add Update Later
 
-                    case enMode.Update:
+                case enMode.Update:
 
+                    return _UpdateContact();
+
+
+
+                   default:
                     return false;
-
-
-                    default:
-                    return false;
-
-
-                   
                     
                     
             }
@@ -113,6 +116,7 @@ namespace ContactsBussinesLayer
             return null;
 
         }
+        
         
 
     }

@@ -61,14 +61,40 @@ namespace ContactsConsoleApplication_PresintionaLayer
             }
 
         }
+
+        static void TestUpdateContact(int ID)
+        {
+            clsContacts contact = clsContacts.Find(ID);
+
+            contact.FirstName = "SABRY";
+            contact.LastName = "Mansor";
+            contact.Email = "Sabry@gmail.com";
+            contact.Phone = "778554996";
+            contact.Address = "ADEN-SAKANEH";
+            contact.DateOfBirth = new DateTime(2006, 5, 4, 12, 30, 10);
+            contact.CountryID = 1;
+            contact.ImagePath = string.Empty;
+
+
+            if (contact.Save())
+            {
+                Console.WriteLine("Contact Updated Successfuly");
+
+            }
+            else
+            {
+                Console.WriteLine("Contact Updated Failed");
+            }
+
+        }
         static void Main(string[] args)
         {
             //TestFind(1);
 
-            TestAddNewContact("Mohammed", "bassam", "A@gmail.com", "884522","USA-Aden", new DateTime(2003, 4, 30,10,30,0),
-                1, "");
+            //TestAddNewContact("Mohammed", "bassam", "A@gmail.com", "884522","USA-Aden", new DateTime(2003, 4, 30,10,30,0),
+            //    1, "");
 
-
+            TestUpdateContact(1009);
         }
     }
 }

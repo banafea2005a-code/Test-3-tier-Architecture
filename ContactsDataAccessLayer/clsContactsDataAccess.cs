@@ -74,7 +74,7 @@ namespace ContactsDataAccessLayer
             catch (Exception ex)
             {
 
-
+                // Later Add Log Error FIle
 
             }
 
@@ -145,6 +145,68 @@ namespace ContactsDataAccessLayer
 
             return ContactID;
 
+        }
+
+
+        public static bool UpdateContact (int ID,string FirstName, string LastName,
+            string Email, string Phone, string Address, DateTime DateOfBirth,
+            int CountryID, string ImagePath)
+        {
+            int RowsEffects = 0;
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+            string query = @"Update Contacts
+                       Set FirstName = @FirstName,
+                       LastName = @LastName,
+                       Email = @Email,
+                       Phone = @Phone,
+                       Address = @Address,
+                       DateOfBirth = @DateOfBirth,
+                       CountryID = @CountryID,
+                       ImagePath = @ImagePath
+                       Where ContactID = @ContactID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@ContactID", ID);
+            command.Parameters.AddWithValue ("@FirstName", FirstName);
+            command.Parameters.AddWithValue("@LastName",LastName);
+            command.Parameters.AddWithValue("@Email", Email);
+            command.Parameters.AddWithValue("@Phone", Phone);
+            command.Parameters.AddWithValue("@Address", Address);
+            command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
+            command.Parameters.AddWithValue("@CountryID", CountryID);
+            
+
+            // handle when ImagePath is Null
+            if(ImagePath != "")
+            {
+                command.Parameters.AddWithValue("@ImagePath", ImagePath);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@ImagePath",DBNull.Value);
+            }
+
+
+            try
+            {
+
+                connection.Open();
+
+                RowsEffects = command.ExecuteNonQuery();
+
+              
+            }
+            catch (Exception ex)
+            {
+
+                return false ;
+            }
+
+
+            finally { connection.Close(); }
+
+            return (RowsEffects > 0);
         }
 
     }
