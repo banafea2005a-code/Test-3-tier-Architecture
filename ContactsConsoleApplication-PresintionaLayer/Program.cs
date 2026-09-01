@@ -34,9 +34,41 @@ namespace ContactsConsoleApplication_PresintionaLayer
             }
 
         }
+        static void TestAddNewContact(string FirstName, string LastName,String Email,string Phone,
+            string Address,DateTime DateOfBirth,int CountryID,string ImagePath)
+        {
+
+           clsContacts NewContact = new clsContacts();
+
+            NewContact.FirstName = FirstName;
+            NewContact.LastName = LastName;
+            NewContact.Email = Email;
+            NewContact.Phone = Phone;
+            NewContact.Address = Address;
+            NewContact.DateOfBirth = DateOfBirth;
+            NewContact.CountryID = CountryID;
+            NewContact.ImagePath = ImagePath;
+
+
+            if (NewContact.Save())
+            {
+                Console.WriteLine("Contact is Added Successfuly");
+
+            }
+            else
+            {
+                Console.WriteLine("Contact is Failed Addedd");
+            }
+
+        }
         static void Main(string[] args)
         {
-            TestFind(1);
+            //TestFind(1);
+
+            TestAddNewContact("Mohammed", "bassam", "A@gmail.com", "884522","USA-Aden", new DateTime(2003, 4, 30,10,30,0),
+                1, "");
+
+
         }
     }
 }

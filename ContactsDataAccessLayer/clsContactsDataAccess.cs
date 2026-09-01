@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace ContactsDataAccessLayer
 {
-    public class clsContactsDataAccess
+    public static class clsContactsDataAccess
     {
-        public static bool GetContact(int id,ref string FirstName,
-            ref string LastName,ref string Email,ref string Phone,
-            ref string Address,ref DateTime DateOfBirth,ref int CountryID,
+        public static bool GetContact(int id, ref string FirstName,
+            ref string LastName, ref string Email, ref string Phone,
+            ref string Address, ref DateTime DateOfBirth, ref int CountryID,
             ref string ImagePath)
         {
-            FirstName = ""; LastName = ""; Email = "";Phone = "";Address = "";
-            DateOfBirth = DateTime.Now;CountryID = 1;ImagePath = "";
+            FirstName = ""; LastName = ""; Email = ""; Phone = ""; Address = "";
+            DateOfBirth = DateTime.Now; CountryID = 1; ImagePath = "";
 
 
             bool IsFound = false;
@@ -46,7 +46,7 @@ namespace ContactsDataAccessLayer
 
                     // When return Image Path value Check If Null Or Not
                     // handling
-                    
+
                     if (reader["ImagePath"] != DBNull.Value)
                     {
 
@@ -63,12 +63,12 @@ namespace ContactsDataAccessLayer
                 else
                 {
                     // Contact Is Not Found
-                    IsFound= false;
+                    IsFound = false;
                 }
 
                 reader.Close();
 
-              
+
             }
 
             catch (Exception ex)
@@ -78,11 +78,74 @@ namespace ContactsDataAccessLayer
 
             }
 
-            finally { connection.Close();  }
-           
+            finally { connection.Close(); }
+
             return IsFound;
         }
-          
-         
+
+        public static int AddNewContact(string FirstName, string LastName,
+            string Email, string Phone, string Address, DateTime DateOfBirth,
+            int CountryID, string ImagePath)
+        {
+
+
+            int ContactID = -1;
+
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+            string query = @"INSERT INTO Contacts (FirstName,LastName,Email,Phone,Address,DateOfBirth,CountryID,ImagePath)
+             Values(@FirstName,@LastName,@Email,@Phone,@Address,@DateOfBirth,@CountryID,@ImagePath);
+             SELECT SCOPE_IDENTITY();";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@FirstName", FirstName);
+            command.Parameters.AddWithValue("@LastName", LastName);
+            command.Parameters.AddWithValue("@Email", Email);
+            command.Parameters.AddWithValue("@Phone", Phone);
+            command.Parameters.AddWithValue("@Address", Address);
+            command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
+            command.Parameters.AddWithValue("@CountryID", CountryID);
+
+            if (ImagePath != string.Empty)
+            {
+                command.Parameters.AddWithValue("@ImagePath", ImagePath);
+
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@imagePath", DBNull.Value);
+            }
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+                if (result != null && int.TryParse(result.ToString(), out int InsertedID))
+                {
+                    ContactID = InsertedID;
+
+
+                }
+
+
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            finally { connection.Close(); }
+
+            return ContactID;
+
+        }
+
     }
 }

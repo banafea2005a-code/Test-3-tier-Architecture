@@ -20,7 +20,16 @@ namespace ContactsBussinesLayer
         public DateTime DateOfBirth { get; set; }
         public int CountryID { get; set; }
         public string ImagePath { get; set; }
+        private bool _AddnewContact()
+        {
+            this.ContactID = clsContactsDataAccess.AddNewContact(this.FirstName,this.LastName,
+                this.Email,this.Phone,this.Address,this.DateOfBirth,this.CountryID,this.ImagePath);
 
+            return (this.ContactID != -1);
+
+
+
+        }
         private clsContacts( int contactID, string firstName, string lastName, string email, string phone, string address, DateTime dateOfBirth, int countryID, string imagePath)
         {
             
@@ -33,8 +42,59 @@ namespace ContactsBussinesLayer
             DateOfBirth = dateOfBirth;
             CountryID = countryID;
             ImagePath = imagePath;
+            Mode = enMode.Update;
         }
+        public clsContacts()
+        {
+            Mode = enMode.AddNew;
+            ContactID = -1;
+            FirstName = String.Empty;
+            LastName = String.Empty;
+            Email = String.Empty;
+            Phone = String.Empty;
+            Address = String.Empty;
+            DateOfBirth = DateTime.MinValue;
+            CountryID = -1;
+            ImagePath = String.Empty;
 
+
+
+        }
+        
+        public bool Save()
+        {
+            switch (Mode)
+            {
+                case enMode.AddNew:
+
+                    if (_AddnewContact())
+                    {
+                        Mode = enMode.Update;
+                        return true;
+                    }
+                    {
+                        return false;
+                    }
+                    // To Add Update Later
+
+                    case enMode.Update:
+
+                    return false;
+
+
+                    default:
+                    return false;
+
+
+                   
+                    
+                    
+            }
+
+
+            
+
+        }
         public static clsContacts Find(int ID)
         {
             string FirstName = "";string LastName = "";string Email="";
