@@ -24,7 +24,7 @@ namespace ContactsBussinesLayer
         }
 
 
-        public clsCountries Find(int ID)
+        public static clsCountries Find(int ID)
         {
             string CountryName = "";
 

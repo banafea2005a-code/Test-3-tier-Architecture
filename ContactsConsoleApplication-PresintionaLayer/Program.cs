@@ -138,6 +138,27 @@ namespace ContactsConsoleApplication_PresintionaLayer
             }
 
         }
+
+        static void TestFindCountriesByID(int ID)
+        {
+
+            clsCountries Country = clsCountries.Find(ID);
+
+            if (Country != null)
+            {
+                Console.WriteLine("CountryID : " + Country.CountryID);
+                Console.WriteLine("CountryName : " + Country.CountryName);
+
+
+            }
+
+            else
+            {
+
+                Console.WriteLine($"Country With ID : {Country.CountryID} is Not FOund ");
+            }
+
+        }
         static void Main(string[] args)
         {
             //TestFind(1);
@@ -148,11 +169,14 @@ namespace ContactsConsoleApplication_PresintionaLayer
             //TestUpdateContact(1009);
 
 
-            TestDeleteContact(1009);
+            //TestDeleteContact(1009);
 
             //TestListContacts();
 
             //TestIsContactExist(5);
+
+
+            TestFindCountriesByID(1);
         }
     }
 }

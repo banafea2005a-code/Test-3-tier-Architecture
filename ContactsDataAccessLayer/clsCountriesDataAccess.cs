@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace ContactsDataAccessLayer
 {
-    static class clsCountriesDataAccess
+    public static class clsCountriesDataAccess
     {
-        static bool GetCountryInfoByID(int ID, ref string CountryName)
+        public static bool GetCountryInfoByID(int ID, ref string CountryName)
         {
             bool IsFound = false;
 
 
 
             SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
-            string query = "select * from Countries where CountryName = @CountryName";
+            string query = "select * from Countries where CountryID = @CountryID";
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@CountryName", CountryName);
+            command.Parameters.AddWithValue("@CountryID", ID);
             try
             {
                 connection.Open();
@@ -47,7 +47,7 @@ namespace ContactsDataAccessLayer
             return IsFound;
         }
     
-    static bool IsExist(int CountryID)
+    public static bool IsExist(int CountryID)
         {
 
             bool IsExist = false;
