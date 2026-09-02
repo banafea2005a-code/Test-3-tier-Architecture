@@ -91,19 +91,23 @@ namespace ContactsConsoleApplication_PresintionaLayer
         static void TestDeleteContact(int ID)
         {
 
-
-            if (clsContacts.DeletContactByID(ID))
+            if (clsContacts.IsContactExsist(ID))
             {
+                if (clsContacts.DeletContactByID(ID))
+                {
 
-                Console.WriteLine("Contact Deleted SuccessFully");
+                    Console.WriteLine("Contact Deleted SuccessFully");
 
+                }
+                else
+                {
+                    Console.WriteLine("Contact Deleted Failed");
+                }
             }
             else
             {
-                Console.WriteLine("Contact Deleted Failed");
+                Console.WriteLine($"The Contact With ID : {ID} Is Not Found ");
             }
-
-
         }
         static void TestListContacts()
         {
@@ -144,11 +148,11 @@ namespace ContactsConsoleApplication_PresintionaLayer
             //TestUpdateContact(1009);
 
 
-            //TestDeleteContact(1009);
+            TestDeleteContact(1009);
 
             //TestListContacts();
 
-            TestIsContactExist(5);
+            //TestIsContactExist(5);
         }
     }
 }
