@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsContactsDataAccess.cs" />
+    <Compile Include="clsCountriesDataAccess.cs" />
     <Compile Include="ClsDataAccessSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
