@@ -128,6 +128,12 @@ namespace ContactsBussinesLayer
         {
             return clsContactsDataAccess.GetAllContact();
         }
+        public static bool IsContactExsist(int ID)
+        {
+
+
+            return clsContactsDataAccess.IsContactExist(ID);
+        }
 
     }
 }

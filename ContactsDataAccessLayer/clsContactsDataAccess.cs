@@ -279,5 +279,41 @@ namespace ContactsDataAccessLayer
 
             return dt;
         }
+
+        public static bool IsContactExist(int ContactID)
+        {
+
+            bool isExist = false;
+
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+            string query = "select found = 1 from Contacts where ContactID = @ContactID";
+
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@ContactID", ContactID);
+                try
+                {
+                    connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        isExist = reader.HasRows;
+                    }
+
+                    reader.Close ();
+
+
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+                return isExist;
+            }
+        }
     }
 }

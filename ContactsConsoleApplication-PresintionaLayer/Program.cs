@@ -118,6 +118,22 @@ namespace ContactsConsoleApplication_PresintionaLayer
             }
 
         }
+        static void TestIsContactExist(int ID)
+        {
+
+            if (clsContacts.IsContactExsist(ID))
+            {
+
+                Console.WriteLine("yes, Contact is Exists");
+
+            }
+            else
+            {
+                Console.WriteLine("No, Contact is not Exists");
+
+            }
+
+        }
         static void Main(string[] args)
         {
             //TestFind(1);
@@ -130,7 +146,9 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
             //TestDeleteContact(1009);
 
-            TestListContacts();
+            //TestListContacts();
+
+            TestIsContactExist(5);
         }
     }
 }
