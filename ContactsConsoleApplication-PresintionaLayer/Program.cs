@@ -87,6 +87,31 @@ namespace ContactsConsoleApplication_PresintionaLayer
             }
 
         }
+        static void TestDeleteContact(int ID)
+        {
+
+
+            if (clsContacts.DeletContactByID(ID))
+            {
+
+                Console.WriteLine("Contact Deleted SuccessFully");
+
+            }
+            else
+            {
+                Console.WriteLine("Contact Deleted Failed");
+            }
+
+
+        }
+        static int ReadID()
+        {
+            int num = 0;
+            Console.Write("Please Enter ID : ");
+            
+            num = Convert.ToInt32(Console.ReadLine());
+            return num;
+        }
         static void Main(string[] args)
         {
             //TestFind(1);
@@ -94,7 +119,12 @@ namespace ContactsConsoleApplication_PresintionaLayer
             //TestAddNewContact("Mohammed", "bassam", "A@gmail.com", "884522","USA-Aden", new DateTime(2003, 4, 30,10,30,0),
             //    1, "");
 
-            TestUpdateContact(1009);
+            //TestUpdateContact(1009);
+
+           
+
+
+            TestDeleteContact(ReadID());
         }
     }
 }

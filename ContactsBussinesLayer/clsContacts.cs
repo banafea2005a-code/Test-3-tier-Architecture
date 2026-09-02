@@ -117,7 +117,12 @@ namespace ContactsBussinesLayer
 
         }
         
-        
+        public static bool DeletContactByID(int ID)
+        {
+
+            return clsContactsDataAccess.DeleteContactByID(ID); 
+
+        }
 
     }
 }

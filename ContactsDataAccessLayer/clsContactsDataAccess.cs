@@ -209,5 +209,37 @@ namespace ContactsDataAccessLayer
             return (RowsEffects > 0);
         }
 
+
+        public static bool DeleteContactByID(int ID)
+        {
+
+           int IsRowEffected = 0;
+
+           SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+            string query = @"delete from Contacts
+                           where ContactID = @ContactID ";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@ContactID",ID);
+
+            try
+            {
+                connection.Open();
+
+                IsRowEffected = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // Later
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return (IsRowEffected > 0);
+
+        }
     }
 }
