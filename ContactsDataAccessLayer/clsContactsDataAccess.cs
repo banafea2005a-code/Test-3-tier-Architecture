@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -240,6 +241,43 @@ namespace ContactsDataAccessLayer
 
             return (IsRowEffected > 0);
 
+        }
+
+        public static DataTable GetAllContact()
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+
+            string query = "SELECT * FROM Contacts";
+
+            SqlCommand command = new SqlCommand(@query, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    dt.Load(reader);
+
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+            finally
+            {
+                connection.Close() ;    
+
+            }
+
+            return dt;
         }
     }
 }

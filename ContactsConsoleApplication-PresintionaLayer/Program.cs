@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -104,13 +105,18 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
 
         }
-        static int ReadID()
+        static void TestListContacts()
         {
-            int num = 0;
-            Console.Write("Please Enter ID : ");
-            
-            num = Convert.ToInt32(Console.ReadLine());
-            return num;
+
+            DataTable dtContacts = clsContacts.GetAllContact();
+
+
+            foreach (DataRow row in dtContacts.Rows)
+            {
+                Console.WriteLine($"{row["ContactID"]}, {row["FirstName"]} {row["LastName"]}");
+
+            }
+
         }
         static void Main(string[] args)
         {
@@ -121,10 +127,10 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
             //TestUpdateContact(1009);
 
-           
 
+            //TestDeleteContact(1009);
 
-            TestDeleteContact(ReadID());
+            TestListContacts();
         }
     }
 }
