@@ -1,6 +1,7 @@
 ﻿using ContactsDataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
@@ -100,6 +101,13 @@ namespace ContactsBussinesLayer
         {
 
             return clsCountriesDataAccess.IsExist(CountryName);
+
+        }
+        public static DataTable GetAllCountries()
+        {
+
+            return clsCountriesDataAccess.GetAllCountries();
+
 
         }
 

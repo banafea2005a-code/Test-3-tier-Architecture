@@ -247,6 +247,18 @@ namespace ContactsConsoleApplication_PresintionaLayer
             }
 
         }
+
+        static void TestGetAllCountries()
+        {
+            DataTable dt = clsCountries.GetAllCountries();
+
+            foreach (DataRow row in dt.Rows)
+            {
+
+                Console.WriteLine($"{row["CountryID"]}, {row["CountryName"]}");
+
+            }
+        }
         static void Main(string[] args)
         {
             //TestFind(1);
@@ -272,7 +284,9 @@ namespace ContactsConsoleApplication_PresintionaLayer
             //TestAddNewCountry("Qatar");
             //gTestUpdateCountry();
 
-            TestIsExistByCounryName("IRAQ");
+            //TestIsExistByCounryName("IRAQ");
+
+            TestGetAllCountries();
         }
     }
 }
