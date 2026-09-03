@@ -89,6 +89,44 @@ namespace ContactsDataAccessLayer
 
             return IsFound;
         }
+        public static int AddNewCountry(string CountryName)
+        {
+
+            // return -1 if not found Country
+
+            int ID = -1;
+
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+
+            SqlCommand command = new SqlCommand("AddNewCountry", connection);
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@CountryName", CountryName);
+
+            try
+            {
+                connection.Open ();
+                object result = command.ExecuteScalar();
+
+                if (result != null && int.TryParse(result.ToString(),out int insertedID))
+                {
+                     ID = insertedID;
+                }
+
+               
+            }
+            catch (Exception ex)
+            {
+
+                ID = -1;
+            }
+
+            finally { connection.Close(); }
+
+
+            return ID;
+        }
 
     public static bool IsExist(int CountryID)
         {
