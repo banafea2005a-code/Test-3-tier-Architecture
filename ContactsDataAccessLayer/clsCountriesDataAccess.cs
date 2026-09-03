@@ -169,7 +169,7 @@ namespace ContactsDataAccessLayer
 
             return isUpdated;
         }
-    public static bool IsExist(int CountryID)
+        public static bool IsExist(int CountryID)
         {
 
             bool IsExist = false;
@@ -207,7 +207,54 @@ namespace ContactsDataAccessLayer
 
             return IsExist;
         }
+        public static bool IsExist(string CountryName)
+        {
 
+            bool IsExist = false;
+
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+
+            SqlCommand command = new SqlCommand("IsExistByName",connection);
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@CountryName", CountryName);
+
+
+            try
+            {
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+
+                    IsExist = reader.HasRows;
+                }
+
+                else
+                {
+                    IsExist = reader.HasRows;
+                }
+
+                reader.Close();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                //Console.WriteLine(ex.Message);
+            }
+
+            finally
+            {
+                connection.Close() ;
+            }
+
+            return IsExist;
+        }
 
 
 

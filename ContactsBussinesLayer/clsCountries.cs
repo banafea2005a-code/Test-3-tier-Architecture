@@ -96,6 +96,12 @@ namespace ContactsBussinesLayer
             }
 
         }
+        public static bool IsExist(string CountryName)
+        {
+
+            return clsCountriesDataAccess.IsExist(CountryName);
+
+        }
 
         public bool Save()
         {

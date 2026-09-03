@@ -233,6 +233,20 @@ namespace ContactsConsoleApplication_PresintionaLayer
                 Console.WriteLine("The Country Updated Failed");
             }
             }
+
+        static void TestIsExistByCounryName(string CounryName)
+        {
+
+            if (clsCountries.IsExist(CounryName))
+            {
+                Console.WriteLine("The Country Is Exist");
+            }
+            else
+            {
+                Console.WriteLine("The Country Is Not Exist");
+            }
+
+        }
         static void Main(string[] args)
         {
             //TestFind(1);
@@ -256,7 +270,9 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
             //TestFindCountryByName("Qatar");
             //TestAddNewCountry("Qatar");
-            TestUpdateCountry();
+            //gTestUpdateCountry();
+
+            TestIsExistByCounryName("IRAQ");
         }
     }
 }
