@@ -39,6 +39,23 @@ namespace ContactsBussinesLayer
                 return null;
             }
         }
+        public static clsCountries Find(string Name)
+        {
+
+            int ID = -1;
+
+            if(clsCountriesDataAccess.GetCountryByName(Name,ref ID))
+            {
+
+                return new clsCountries(ID,Name);
+            }
+            else
+            {
+                return null;
+            }
+
+
+        }
         public static bool IsExist(int ID)
         {
 

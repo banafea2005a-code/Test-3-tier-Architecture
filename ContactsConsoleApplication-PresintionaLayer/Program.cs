@@ -173,6 +173,27 @@ namespace ContactsConsoleApplication_PresintionaLayer
                 Console.WriteLine($"the Country With ID : {ID} Is Not Exist ");
             }
         }
+        static void TestFindCountryByName(string Name)
+        {
+
+
+            clsCountries country = clsCountries.Find(Name);
+
+            if(country != null)
+            {
+
+                Console.WriteLine($"ID : {country.CountryID}");
+                Console.WriteLine($"Country Name : {country.CountryName}");
+
+            }
+
+            else
+            {
+                Console.WriteLine("The Country is Not Found");
+            }
+
+
+        }
         static void Main(string[] args)
         {
             //TestFind(1);
@@ -192,7 +213,9 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
             //TestFindCountriesByID(1);
 
-            TestIsExistCountry(100);
+            //TestIsExistCountry(100);
+
+            TestFindCountryByName("United States");
         }
     }
 }

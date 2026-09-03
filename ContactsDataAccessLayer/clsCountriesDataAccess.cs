@@ -46,7 +46,50 @@ namespace ContactsDataAccessLayer
 
             return IsFound;
         }
-    
+        public static bool GetCountryByName(string Name, ref int ID)
+        {
+
+            bool IsFound = false;
+
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+
+            SqlCommand command = new SqlCommand("GetCountriestByName", connection);
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@Name", Name);
+
+
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.Read())
+                {
+                    IsFound = true;
+                    ID = (int)reader["CountryID"];
+                }
+
+                reader.Close ();
+
+
+            }
+            catch (Exception ex)
+            {
+
+                //Console.WriteLine(ex.ToString());
+                IsFound = false;
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return IsFound;
+        }
+
     public static bool IsExist(int CountryID)
         {
 
@@ -82,9 +125,12 @@ namespace ContactsDataAccessLayer
                 connection.Close();
 
             }
-            
+
             return IsExist;
         }
-    }
 
+
+
+
+    }
 }
