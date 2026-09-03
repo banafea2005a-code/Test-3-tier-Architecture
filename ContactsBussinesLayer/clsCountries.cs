@@ -39,6 +39,23 @@ namespace ContactsBussinesLayer
                 return null;
             }
         }
+        public static bool IsExist(int ID)
+        {
+
+
+
+            if (clsCountriesDataAccess.IsExist(ID))
+            {
+
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+
+        }
 
     }
 }

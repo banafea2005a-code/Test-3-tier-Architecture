@@ -159,6 +159,20 @@ namespace ContactsConsoleApplication_PresintionaLayer
             }
 
         }
+
+        static void TestIsExistCountry(int ID)
+        {
+
+            if (clsCountries.IsExist(ID))
+            {
+
+                Console.WriteLine("The Country Is Exist");
+            }
+            else
+            {
+                Console.WriteLine($"the Country With ID : {ID} Is Not Exist ");
+            }
+        }
         static void Main(string[] args)
         {
             //TestFind(1);
@@ -176,7 +190,9 @@ namespace ContactsConsoleApplication_PresintionaLayer
             //TestIsContactExist(5);
 
 
-            TestFindCountriesByID(1);
+            //TestFindCountriesByID(1);
+
+            TestIsExistCountry(100);
         }
     }
 }
