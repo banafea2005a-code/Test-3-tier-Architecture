@@ -127,7 +127,48 @@ namespace ContactsDataAccessLayer
 
             return ID;
         }
+        public static bool UpdateCountry(int CountryID, string CountryName)
+        {
 
+            bool isUpdated = false;
+
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+
+            string query = @"update Countries 
+                           SET CountryName = @CountryName
+                           where CountryID = @CountryID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@CountryName", CountryName);
+            command.Parameters.AddWithValue("@CountryID", CountryID);
+
+            try
+            {
+
+                connection.Open();
+
+                int IsRowEffects = command.ExecuteNonQuery();
+                if (IsRowEffects > 0)
+                {
+                    isUpdated = true;
+
+                }
+                else
+                {
+                    isUpdated = false;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine(ex.ToString());
+            }
+            finally { connection.Close(); }
+
+            return isUpdated;
+        }
     public static bool IsExist(int CountryID)
         {
 

@@ -213,6 +213,26 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
 
         }
+        static void TestUpdateCountry()
+        {
+
+            clsCountries Country = clsCountries.Find(7);
+
+            Country.CountryName = "IRAQ";
+
+
+            if (Country.Save())
+            {
+                Console.WriteLine("The Country Updated SucceessFuly");
+
+
+
+            }
+            else
+            {
+                Console.WriteLine("The Country Updated Failed");
+            }
+            }
         static void Main(string[] args)
         {
             //TestFind(1);
@@ -234,9 +254,9 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
             //TestIsExistCountry(100);
 
-            TestFindCountryByName("Qatar");
+            //TestFindCountryByName("Qatar");
             //TestAddNewCountry("Qatar");
-
+            TestUpdateCountry();
         }
     }
 }

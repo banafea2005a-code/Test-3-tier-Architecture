@@ -73,6 +73,12 @@ namespace ContactsBussinesLayer
 
 
         }
+        private bool _Update()
+        {
+
+            return clsCountriesDataAccess.UpdateCountry(this.CountryID, this.CountryName);
+
+        }
         public static bool IsExist(int ID)
         {
 
@@ -112,9 +118,16 @@ namespace ContactsBussinesLayer
                     }
 
                 case enMode.Update:
-                    // Add later
+                   
+                    if(_Update())
+                    {
 
-                    return false;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
             }
 
             return false;
