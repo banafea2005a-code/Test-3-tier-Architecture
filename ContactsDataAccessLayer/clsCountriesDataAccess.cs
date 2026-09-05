@@ -10,7 +10,8 @@ namespace ContactsDataAccessLayer
 {
     public static class clsCountriesDataAccess
     {
-        public static bool GetCountryInfoByID(int ID, ref string CountryName)
+        public static bool GetCountryInfoByID(int ID, ref string CountryName,ref string Code,ref
+            string PhoneCode)
         {
             bool IsFound = false;
 
@@ -32,6 +33,8 @@ namespace ContactsDataAccessLayer
                     IsFound = true;
 
                     CountryName = (string)reader["CountryName"];
+                    Code = Convert.ToString(reader["Code"]);
+                    PhoneCode = Convert.ToString(reader["PhoneCode"]);
                 }
                 reader.Close();
 
@@ -47,7 +50,7 @@ namespace ContactsDataAccessLayer
 
             return IsFound;
         }
-        public static bool GetCountryByName(string Name, ref int ID)
+        public static bool GetCountryByName(string Name, ref int ID,ref string Code,ref string PhoneCode)
         {
 
             bool IsFound = false;
@@ -66,10 +69,12 @@ namespace ContactsDataAccessLayer
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
 
-                if(reader.Read())
+                if (reader.Read())
                 {
                     IsFound = true;
                     ID = (int)reader["CountryID"];
+                    Code = Convert.ToString(reader["Code"]);
+                    PhoneCode = Convert.ToString(reader["PhoneCode"]);
                 }
 
                 reader.Close ();
@@ -90,7 +95,7 @@ namespace ContactsDataAccessLayer
 
             return IsFound;
         }
-        public static int AddNewCountry(string CountryName)
+        public static int AddNewCountry(string CountryName,string Code,string PhoneCode)
         {
 
             // return -1 if not found Country
@@ -104,6 +109,24 @@ namespace ContactsDataAccessLayer
             command.CommandType = System.Data.CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@CountryName", CountryName);
+           
+            if(!string.IsNullOrEmpty(Code))
+            {
+                command.Parameters.AddWithValue("@Code", Code);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@Code", DBNull.Value);
+            }
+
+            if(!string.IsNullOrEmpty(PhoneCode))
+            {
+                command.Parameters.AddWithValue("@PhoneCode", PhoneCode);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@PhoneCode", DBNull.Value);
+            }
 
             try
             {
@@ -128,7 +151,7 @@ namespace ContactsDataAccessLayer
 
             return ID;
         }
-        public static bool UpdateCountry(int CountryID, string CountryName)
+        public static bool UpdateCountry(int CountryID, string CountryName,string Code,string PhoneCode)
         {
 
             bool isUpdated = false;
@@ -136,13 +159,33 @@ namespace ContactsDataAccessLayer
             SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
 
             string query = @"update Countries 
-                           SET CountryName = @CountryName
+                           SET CountryName = @CountryName,
+                           Code = @Code,
+                           PhoneCode = @PhoneCode
                            where CountryID = @CountryID";
 
             SqlCommand command = new SqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@CountryName", CountryName);
             command.Parameters.AddWithValue("@CountryID", CountryID);
+            command.Parameters.AddWithValue("@CountryName", CountryName);
+
+            if (!string.IsNullOrEmpty(Code))
+            {
+                command.Parameters.AddWithValue("@Code", Code);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@Code", DBNull.Value);
+            }
+            
+            if (!string.IsNullOrEmpty(PhoneCode))
+            {
+                command.Parameters.AddWithValue("@PhoneCode", PhoneCode);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@PhoneCode", DBNull.Value);
+            }
 
             try
             {

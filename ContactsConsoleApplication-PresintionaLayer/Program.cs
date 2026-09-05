@@ -148,6 +148,8 @@ namespace ContactsConsoleApplication_PresintionaLayer
             {
                 Console.WriteLine("CountryID : " + Country.CountryID);
                 Console.WriteLine("CountryName : " + Country.CountryName);
+                Console.WriteLine("Code : " + Country.Code);
+                Console.WriteLine("PhoneCode : " + Country.PhoneCode);
 
 
             }
@@ -184,6 +186,8 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
                 Console.WriteLine($"ID : {country.CountryID}");
                 Console.WriteLine($"Country Name : {country.CountryName}");
+                Console.WriteLine($"Code : {country.Code}");
+                Console.WriteLine($"Phone Code : {country.PhoneCode}");
 
             }
 
@@ -194,11 +198,13 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
 
         }
-        static void TestAddNewCountry(string CountryName)
+        static void TestAddNewCountry(string CountryName,string Code ="",string PhoneCode ="")
         {
             clsCountries country = new clsCountries();
 
             country.CountryName = CountryName;
+            country.Code = Code;
+            country.PhoneCode = PhoneCode;
 
             if (country.Save())
             {
@@ -216,9 +222,12 @@ namespace ContactsConsoleApplication_PresintionaLayer
         static void TestUpdateCountry()
         {
 
-            clsCountries Country = clsCountries.Find(7);
+            clsCountries Country = clsCountries.Find(12);
 
             Country.CountryName = "IRAQ";
+            Country.Code = "IQ";
+            Country.PhoneCode = "964";
+
 
 
             if (Country.Save())
@@ -300,19 +309,19 @@ namespace ContactsConsoleApplication_PresintionaLayer
             //TestIsContactExist(5);
 
 
-            //TestFindCountriesByID(1);
+            //TestFindCountriesByID(4);
 
-            //TestIsExistCountry(100);
+            //TestIsExistCountry(5);
 
-            //TestFindCountryByName("Qatar");
-            //TestAddNewCountry("Qatar");
-            //gTestUpdateCountry();
+            //TestFindCountryByName("YEMEN");
+            //TestAddNewCountry("السودان");
+            //TestUpdateCountry();
 
             //TestIsExistByCounryName("IRAQ");
 
             //TestGetAllCountries();
 
-            TestDeleteByCountryID(7);
+            TestDeleteByCountryID(12);
         }
     }
 }

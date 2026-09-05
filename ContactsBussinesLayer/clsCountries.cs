@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,13 +17,16 @@ namespace ContactsBussinesLayer
         enMode Mode;
          public int CountryID {  get; set; }
         public string CountryName { get; set; }
+        public string Code { get; set; }
+        public string PhoneCode { get; set; }
 
-
-        private clsCountries(int ID,string CountryName) { 
+        private clsCountries(int ID,string CountryName,string Code,string PhoneCode) { 
         
             Mode = enMode.Update;
             CountryID = ID;
             this.CountryName = CountryName;
+            this.Code = Code;
+            this.PhoneCode = PhoneCode;
 
         
         }
@@ -31,17 +35,19 @@ namespace ContactsBussinesLayer
             this.Mode = enMode.AddNew;
             this.CountryID = 0;
             this.CountryName = string.Empty;
-
+            this.Code = string.Empty;
+            this.PhoneCode = string.Empty;
         }
 
         public static clsCountries Find(int ID)
         {
-            string CountryName = "";
+            string CountryName = ""; string Code = "";string PhoneCode = "";
 
-            if(clsCountriesDataAccess.GetCountryInfoByID(ID,ref CountryName))
+
+            if(clsCountriesDataAccess.GetCountryInfoByID(ID,ref CountryName,ref Code,ref PhoneCode))
             {
 
-                return new clsCountries(ID,CountryName);
+                return new clsCountries(ID,CountryName,Code,PhoneCode);
 
             }
             else
@@ -53,11 +59,12 @@ namespace ContactsBussinesLayer
         {
 
             int ID = -1;
+            string Code = ""; string PhoneCode = "";
 
-            if(clsCountriesDataAccess.GetCountryByName(Name,ref ID))
+            if (clsCountriesDataAccess.GetCountryByName(Name,ref ID,ref Code,ref PhoneCode))
             {
 
-                return new clsCountries(ID,Name);
+                return new clsCountries(ID,Name,Code,PhoneCode);
             }
             else
             {
@@ -68,7 +75,7 @@ namespace ContactsBussinesLayer
         }
         private bool _AddNew()
         {
-            this.CountryID = clsCountriesDataAccess.AddNewCountry(this.CountryName);
+            this.CountryID = clsCountriesDataAccess.AddNewCountry(this.CountryName,this.Code,this.PhoneCode);
 
             return (this.CountryID > -1);
 
@@ -77,7 +84,7 @@ namespace ContactsBussinesLayer
         private bool _Update()
         {
 
-            return clsCountriesDataAccess.UpdateCountry(this.CountryID, this.CountryName);
+            return clsCountriesDataAccess.UpdateCountry(this.CountryID, this.CountryName,this.Code,this.PhoneCode);
 
         }
         public static bool IsExist(int ID)
