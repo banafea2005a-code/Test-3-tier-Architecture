@@ -256,6 +256,49 @@ namespace ContactsDataAccessLayer
 
             return IsExist;
         }
+
+        public static bool DeleteCountryByID(int ID)
+        {
+            bool IsDeleted = false;
+
+            SqlConnection connection = new SqlConnection(ClsDataAccessSettings.ConnectionString);
+            SqlCommand command = new SqlCommand("DeleteCountryByID", connection);
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@ID",ID);
+
+
+            try
+            {
+
+                connection.Open();
+
+                int RowEffects = command.ExecuteNonQuery();
+
+                if(RowEffects > 0)
+                {
+
+                    IsDeleted = (RowEffects > 0);   
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+
+            finally
+            {
+                connection.Close();
+            }
+
+            return IsDeleted;
+            }
         public static DataTable GetAllCountries()
         {
 
@@ -297,5 +340,6 @@ namespace ContactsDataAccessLayer
             return dt;
         }
 
+        
     }
 }

@@ -259,6 +259,30 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
             }
         }
+
+        static void TestDeleteByCountryID(int id)
+        {
+
+            if (clsCountries.IsExist(id))
+            {
+
+
+                if (clsCountries.DeleteCountryByID(id))
+                {
+
+                    Console.WriteLine("The Country Is Deleted Success");
+
+                }
+                else
+                {
+                    Console.WriteLine("The Country Is Failed Deleted ");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"the Country With ID : {id} Is Not Found");
+            }
+        }
         static void Main(string[] args)
         {
             //TestFind(1);
@@ -286,7 +310,9 @@ namespace ContactsConsoleApplication_PresintionaLayer
 
             //TestIsExistByCounryName("IRAQ");
 
-            TestGetAllCountries();
+            //TestGetAllCountries();
+
+            TestDeleteByCountryID(7);
         }
     }
 }

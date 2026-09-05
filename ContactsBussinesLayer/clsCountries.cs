@@ -147,5 +147,10 @@ namespace ContactsBussinesLayer
             return false;
         }
 
+        static public bool DeleteCountryByID(int ID)
+        {
+
+            return clsCountriesDataAccess.DeleteCountryByID(ID);
+        }
     }
 }
